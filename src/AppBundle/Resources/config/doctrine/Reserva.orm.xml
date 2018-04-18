@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Reserva" table="Reserva">
+    <indexes>
+      <index name="fk_Reserva_Usuario1_idx" columns="Usuario_Id"/>
+      <index name="fk_Reserva_Habitacion1_idx" columns="Habitacion_Id"/>
+    </indexes>
+    <id name="id" type="integer" column="Id"/>
+    <id name="habitacion" association-key="true"/>
+    <id name="usuario" association-key="true"/>
+    <field name="fecha" type="date" column="Fecha" nullable="false"/>
+    <field name="estado" type="boolean" column="Estado" nullable="false"/>
+    <field name="entrada" type="integer" column="Entrada" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="salida" type="string" column="Salida" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="codigo" type="string" column="codigo" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <one-to-one field="habitacion" target-entity="Habitacion" fetch="LAZY">
+      <join-columns>
+        <join-column name="Habitacion_Id" referenced-column-name="Id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="Usuario_Id" referenced-column-name="Id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

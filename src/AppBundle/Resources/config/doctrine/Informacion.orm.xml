@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Informacion" table="Informacion">
+    <indexes>
+      <index name="fk_Informacion_Usuario1_idx" columns="Usuario_Id"/>
+    </indexes>
+    <id name="id" type="integer" column="Id"/>
+    <id name="usuario" association-key="true"/>
+    <field name="telefono" type="string" column="Telefono" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="direccion" type="string" column="Direccion" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <one-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="Usuario_Id" referenced-column-name="Id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>
