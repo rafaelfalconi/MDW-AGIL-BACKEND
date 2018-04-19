@@ -4,8 +4,9 @@
     <indexes>
       <index name="fk_Informacion_Usuario1_idx" columns="Usuario_Id"/>
     </indexes>
-    <id name="id" type="integer" column="Id"/>
-    <id name="usuario" association-key="true"/>
+    <id name="id" type="integer" column="Id">
+      <generator strategy="IDENTITY"/>
+    </id>
     <field name="telefono" type="string" column="Telefono" length="45" nullable="true">
       <options>
         <option name="fixed"/>
@@ -16,10 +17,10 @@
         <option name="fixed"/>
       </options>
     </field>
-    <one-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
+    <many-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
       <join-columns>
         <join-column name="Usuario_Id" referenced-column-name="Id"/>
       </join-columns>
-    </one-to-one>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
