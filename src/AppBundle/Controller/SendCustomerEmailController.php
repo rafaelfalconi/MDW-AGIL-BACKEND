@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\SendCustomerEmailController;
+namespace AppBundle\Controller;
 
 class SendCustomerEmailController
 {
