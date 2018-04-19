@@ -31,21 +31,83 @@ class Informacion
      *
      * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\Usuario
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Usuario_Id", referencedColumnName="Id")
      * })
      */
     private $usuario;
+
+    /**
+     * @return string
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * @param string $telefono
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * @param string $direccion
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * @param Usuario $usuario
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+    }
 
 
 }
