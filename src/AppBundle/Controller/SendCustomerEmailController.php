@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
-class SendCustomerEmailController
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class SendCustomerEmailController extends Controller
 {
     public function sendCustomerEmail($reservationPrice, $reservationId,
                                       $hotelEmail, $customerEmail, \Swift_Mailer $mailer)
