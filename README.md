@@ -8,3 +8,8 @@ crear una rama con el nombre apartir de develop y trabar en esa una ves que se t
 cambios a develop.
 
 la carpeta del front end es html
+
+para corer el servidor de symfony es : php bin/console serve:run
+
+si quieren consultar como construir el controlador y su funcion en dropbox esta una
+carptea con nombre : rest api ejemplo
