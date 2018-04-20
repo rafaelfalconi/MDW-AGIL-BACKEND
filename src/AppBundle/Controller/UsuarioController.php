@@ -44,7 +44,7 @@ class UsuarioController extends FOSRestController
         if (!count($user_exist)) {
 
             $usuario->setEmail($username);
-            $usuario->setClave(rand ( 80000000, 90000000));
+            $usuario->setClave($username . mt_rand(0, 1000000));
             $em->persist($usuario);
             $em->flush();
             return new View("OK", Response::HTTP_OK);
@@ -53,22 +53,5 @@ class UsuarioController extends FOSRestController
         return new View("OK", Response::HTTP_OK);
 
     }
-
-
-   /* public function postAction(Request $request)
-    {
-        $usuario = new Usuario();
-        $username = $request->get('username');
-        if(empty($username))
-        {
-            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
-        }
-        $usuario->setEmail($username);
-        $usuario->setClave(rand ( 80000000, 90000000));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($usuario);
-        $em->flush();
-        return new View("User Added Successfully", Response::HTTP_OK);
-    }*/
 
 }

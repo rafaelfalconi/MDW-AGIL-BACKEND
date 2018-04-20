@@ -31,18 +31,16 @@ class UsuarioControllerTest extends WebTestCase
             'clave'    => $username . $rand_num
         ];
 
+        $client = static::createClient();
         // 201
-        self::$_client->request(
-            Request::METHOD_POST, self::RUTA_API1,
-            [], [], [], json_encode($p_data)
-        );
+        $client->request('POST' , self::RUTA_API1, [], [], [], json_encode($p_data));
+
         $response = self::$_client->getResponse();
-        self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());
-        $user = json_decode($response->getContent(), true);
 
-        return $user['user'];
+
     }
 
 
