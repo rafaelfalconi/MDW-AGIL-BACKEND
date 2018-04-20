@@ -15,33 +15,33 @@ class UsuarioControllerTest extends WebTestCase
 {
     const RUTA_API1='/user';
 
-    /**
-     * Test POST /users 201 Created
-     *
-     * @return array user data
-     *
-     * @covers \AppBundle\Controller\ApiUserController::postUserAction()
-     */
-    public function testPostUserAction201()
+    public function testPostUserCreateAction201()
     {
         $rand_num = mt_rand(0, 1000000);
         $username = 'userTest' . $rand_num . '@test.com';
-        $p_data = [
-            'email' => $username,
-            'clave'    => $username . $rand_num
-        ];
-
+        $p_data = array('username' => $username);
         $client = static::createClient();
-        // 201
-        $client->request('POST' , self::RUTA_API1, [], [], [], json_encode($p_data));
-
-        $response = self::$_client->getResponse();
+        $client->request('POST' , self::RUTA_API1,$p_data );
+        $response = $client->getResponse();
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        self::assertTrue($response->isSuccessful());
+        self::assertJson($response->getContent());
+
+    }
+
+    public function testPostUserExistNotCreateAction200()
+    {
+        $rand_num = mt_rand(0, 1000000);
+        $username = 'userTest' . $rand_num . '@test.com';
+        $p_data = array('username' => $username);
+        $client = static::createClient();
+        $client->request('POST' , self::RUTA_API1,$p_data );
+        $client->request('POST' , self::RUTA_API1,$p_data );
+        $response = $client->getResponse();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());
 
 
     }
-
-
 }
