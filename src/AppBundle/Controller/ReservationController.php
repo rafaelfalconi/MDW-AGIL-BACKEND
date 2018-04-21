@@ -19,10 +19,14 @@ use AppBundle\Entity\Reserva;
 
 
 
+
+/**
+ * @Rest\Route("api/v1/reservation")
+ */
 class ReservationController extends Controller
 {
     /**
-     * @Rest\Get("/reservation")
+     * @Rest\Get("")
      */
     public function getAction()
     {
@@ -34,7 +38,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * @Rest\Get("/reservation/{id}")
+     * @Rest\Get("/{id}")
      */
     public function idAction($id)
     {
@@ -44,6 +48,39 @@ class ReservationController extends Controller
         }
         return $singleresult;
     }
+    /**
+     * @Rest\Get("/code/{codeReservation}")
+     */
+    public function confirmReservationAction($codeReservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reservafind = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findBy(['codigo' => $codeReservation]);
+        if (empty($reservafind)) {
+            return new View("Categoría no encontrada", Response::HTTP_NOT_FOUND);
+        }
+        return $reservafind;
+    }
+
+    /**
+     * @Rest\Get("/{id}/update")
+     * @param $id
+     */
+    public function updateReserva($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $reserva = $this->getDoctrine()->getRepository(Reserva::class)->find($id);
+        $reserva->setEstado(true);
+
+        $em->persist($reserva);
+        $flush = $em->flush();
+        if ($flush == null) {
+            echo "Reserva actualizado correctamente";
+        } else {
+            echo "Reserva no se ha actualizado";
+        }
+        die();
+    }
+
     /**
      * @Rest\Post("/reservation")
      */
@@ -76,5 +113,6 @@ class ReservationController extends Controller
         $em->flush();
         return new View("Reserva Added Successfully", Response::HTTP_OK);
 
-    } 
+    }
+
 }
