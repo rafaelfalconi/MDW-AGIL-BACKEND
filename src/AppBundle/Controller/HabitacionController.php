@@ -14,13 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
 
-/**
- * @Rest\Route("api/v1/habitaciones")
- */
+
 class HabitacionController extends FOSRestController
 {
     /**
-     * @Rest\Get()
+     * @Rest\GET("/habitaciones")
      */
     public function getAction(Request $request)
     {
@@ -28,8 +26,10 @@ class HabitacionController extends FOSRestController
         if ($habitaciones === null) {
             return new View("No hay habitaciones registrados", Response::HTTP_NOT_FOUND);
         }
+
         $fecha = $request->get('fecha');
-        $hora = $request->get('hora');
+        $hora = $request->get('hora')-2;
+
         $arrayresult=array();
         foreach ($habitaciones as $habitacion){
             $repository = $this->getDoctrine()
