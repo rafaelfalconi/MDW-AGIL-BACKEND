@@ -44,5 +44,37 @@ class ReservationController extends Controller
         }
         return $singleresult;
     }
+    /**
+     * @Rest\Post("/reservation")
+     */
+    public function postAction(Request $request)
+    {
 
+        $reserva = new Reserva;
+        $fecha = $request->get('fecha');
+        $entrada = $request->get('entrada');
+        $salida = $request->get('salida');
+        $habitacion = $request->get('habitacion');
+        $usuario = $request->get('usuario');
+        if(empty($fecha) || empty($entrada) || empty($salida) || empty($habitacion) || empty($usuario))
+        {
+            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $habitacion = $this->getDoctrine()->getRepository('AppBundle:Habitacion')->find($habitacion);
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($usuario);
+
+        $reserva->setFecha(new \DateTime($fecha));
+        $reserva->setEstado(false);
+        $reserva->setEntrada($entrada);
+        $reserva->setSalida($salida);
+        $reserva->setCodigo(mt_rand(0, 1000000));
+        $reserva->setHabitacion($habitacion);
+        $reserva->setUsuario($usuario);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($reserva);
+        $em->flush();
+        return new View("Reserva Added Successfully", Response::HTTP_OK);
+
+    } 
 }
