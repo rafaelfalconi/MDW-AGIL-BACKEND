@@ -177,7 +177,7 @@ input[type="submit"],.w3l_header_left ul li a,.related-post-right h4 a,.comments
     text-transform: uppercase;
 }
 .navbar-header h1 a {
-        color: #FFFFFF;
+        color: #000;
     text-decoration: none;
     display: inline-block;
     line-height: 61px;
