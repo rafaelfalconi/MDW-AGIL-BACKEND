@@ -35,7 +35,7 @@ $(document).on('submit', '#search-room', function (e) {
             rooms += "<div class='col-md-12'>";
             rooms += "<h3>Costo: €" + costo+"</h3>"
             rooms += "</div>";
-            rooms += "<div class='col-md-12'><button class='btn-danger btn' id='" + habitaciones.habitacion.id + "'>Reservar</button></div>";
+            rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='"+fecha+"' name='"+ingreso+"' data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
             rooms += "</div>";
             rooms += "</div>";
         });
@@ -53,4 +53,35 @@ $(document).on('submit', '#search-room', function (e) {
     });
 
 
+});
+
+
+$('#rooms').on("click",'.habitaciones', function(){
+	$("#habitacion").val($(this).attr("id"));
+	$("#fecha").val($(this).attr("title"));
+	$("#entrada").val($(this).attr("name"));
+});
+
+$(document).on('submit', '#reserva', function (e) {
+    e.preventDefault();
+	var $this = $(this);
+    $.ajax({
+        url: 'http://127.0.0.1:8000/api/v1/reservation',
+        type: 'POST',
+        data: new FormData($this[0]),
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+    }).done(function (datos, textStatus, xhr) {
+		swal("Good job!", "Reserve Added Successfully", "success");
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == "406") {
+            swal("Error", jqXHR.responseText.replace(/["]+/g, ''), "error");
+        }
+         else {
+            swal("Error", "unrealized reservation", "error");
+        }
+    })
+	
 });

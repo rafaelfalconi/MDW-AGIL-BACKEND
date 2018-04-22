@@ -82,7 +82,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * @Rest\Post("/reservation")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {
