@@ -35,15 +35,15 @@ class HabitacionController extends FOSRestController
             $repository = $this->getDoctrine()
                 ->getRepository(Reserva::class);
             $query = $repository->createQueryBuilder('r')
-                ->where('r.entrada >= :entrada and r.fecha= :fecha and r.habitacion= :habitacion')
+                ->where('r.salida >= :entrada and r.fecha= :fecha and r.habitacion= :habitacion')
                 ->setParameters(array("entrada" => $hora,"fecha" => $entrada, "habitacion"=>$habitacion))
-                ->orderBy('r.salida', 'ASC')
+                ->orderBy('r.entrada', 'ASC')
                 ->setMaxResults(1)
                 ->getQuery();
             $restseult = $query->getResult();
             if(empty($restseult)){
                 $restseult= new Reserva();
-                $restseult->setEntrada($hora);
+                $restseult->setEntrada(24);
                 $restseult->setSalida(24);
                 $restseult->setCodigo(0);
                 $restseult->setHabitacion($habitacion);
