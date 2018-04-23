@@ -80,10 +80,35 @@ $('#rooms').on("click", '.habitaciones', function () {
 $(document).on('submit', '#reserva', function (e) {
     e.preventDefault();
     var $this = $(this);
+
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/v1/reservation',
+        url: 'http://127.0.0.1:8000/user',
         type: 'POST',
         data: new FormData($this[0]),
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+    }).done(function (datos, textStatus, xhr) {
+         addReserva($this,datos);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == "406") {
+            swal("Error", jqXHR.responseText.replace(/["]+/g, ''), "error");
+        }
+        else {
+            swal("Error", "unrealized reservation", "error");
+        }
+    })
+
+});
+
+function addReserva($this,usuario){
+    var formData = new FormData($this[0]);
+    formData.append("usuario", usuario);
+    $.ajax({
+        url: 'http://127.0.0.1:8000/reserva',
+        type: 'POST',
+        data: formData,
         async: true,
         cache: false,
         contentType: false,
@@ -98,5 +123,4 @@ $(document).on('submit', '#reserva', function (e) {
             swal("Error", "unrealized reservation", "error");
         }
     })
-
-});
+}
