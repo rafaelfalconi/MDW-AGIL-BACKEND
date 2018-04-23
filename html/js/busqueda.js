@@ -93,10 +93,10 @@ $(document).on('submit', '#reserva', function (e) {
          addReserva($this,datos);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status == "406") {
-            swal("Error", jqXHR.responseText.replace(/["]+/g, ''), "error");
+            swal("Alerta", jqXHR.responseText.replace(/["]+/g, ''), "info");
         }
         else {
-            swal("Error", "unrealized reservation", "error");
+            swal("Error", "Error de conexión", "error");
         }
     })
 
@@ -114,13 +114,16 @@ function addReserva($this,usuario){
         contentType: false,
         processData: false,
     }).done(function (datos, textStatus, xhr) {
-        swal("Good job!", "Reserve Added Successfully", "success");
+        $("#rooms").html('');
+        $('#myModal').modal('toggle');
+        $('#reserva')[0].reset();
+        swal("Buen trabajo!", "Reserva agregada con éxito", "success");
     }).fail(function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status == "406") {
-            swal("Error", jqXHR.responseText.replace(/["]+/g, ''), "error");
+            swal("Alerta", jqXHR.responseText.replace(/["]+/g, ''), "info");
         }
         else {
-            swal("Error", "unrealized reservation", "error");
+            swal("Error", "Reserva no realizada", "error");
         }
     })
 }

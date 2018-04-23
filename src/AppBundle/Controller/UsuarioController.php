@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Mapping\Id;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -34,12 +35,15 @@ class UsuarioController extends FOSRestController
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
         $em = $this->getDoctrine()->getManager();
-        $criteria = new Criteria();
+       /* $criteria = new Criteria();
         $criteria
             ->where($criteria::expr()->eq('email', $username ));
         $user_exist = $em
             ->getRepository(Usuario::class)
-            ->matching($criteria);
+            ->matching($criteria);*/
+        $user_exist = $em
+            ->getRepository(Usuario::class)
+            ->findBy(['email' => $username]);
 
         if (!count($user_exist)) {
 
@@ -49,8 +53,8 @@ class UsuarioController extends FOSRestController
             $em->flush();
             return new View($usuario->getId(), Response::HTTP_CREATED);
         }
-
-        return new View($user_exist->getId(), Response::HTTP_OK);
+        $usuario = $user_exist[0];
+        return new View($usuario->getId(), Response::HTTP_OK);
 
     }
 
