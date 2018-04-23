@@ -77,7 +77,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/reservation")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {
