@@ -51,7 +51,7 @@ class UsuarioController extends FOSRestController
             $usuario->setClave($username . mt_rand(0, 1000000));
             $em->persist($usuario);
             $em->flush();
-            return new View($usuario, Response::HTTP_CREATED);
+            return new View($usuario->getId(), Response::HTTP_CREATED);
         }
         $usuario = $user_exist[0];
         return new View($usuario->getId(), Response::HTTP_OK);
