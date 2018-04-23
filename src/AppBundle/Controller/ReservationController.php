@@ -33,6 +33,18 @@ class ReservationController extends FOSRestController
     }
 
     /**
+     * @Rest\Get("/reservas/hotel/{id}")
+     */
+    public function getReservasByHotelAction($id)
+    {
+        $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAllReservasByHotel($id);
+        if ($restresult === null) {
+            return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
+        }
+        return $restresult;
+    }
+
+    /**
      * @Rest\Get("/{id}")
      */
     public function idAction($id)
