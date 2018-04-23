@@ -1,140 +1,88 @@
-// Empty JS for your own code to be here
-//Variables globales
+$(document).on('submit', '#reservas', function (e) {
+    e.preventDefault();
+    codeReservation = $("#focusedinput").val();
 
-var REQUEST_ESTATUS;
-var READY_STATE;
-var http_request = new XMLHttpRequest();
-var urlPage;
-var uname;
-var pass;
-( function( window ) {
+    $.ajax({
+        url: 'http://127.0.0.1:8001/code/' + codeReservation,
+        type: 'GET',
+        data: null,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+    }).done(function (datos) {
+        rooms += "<div class=\"w3l-footer\">\n" +
+            "    <div class=\"container\">\n" +
+            "        <div class=\"connect-agileits newsletter\">\n" +
+            "            <h4>Confirmation Report</h4>\n" +
+            "            <p>Condirmation of the reservation code with the pin of the hotel.</p>\n" +
+            "            <form id='resconfirm' action=\"#\" method=\"post\" class='form-horizontal'>\n" +
+            "                    <div class='form-group'>\n" +
+            "                    <label for='focusedinput' class='col-sm-2 control-label'><p>PIN</p></label>\n" +
+            "                        <div class='col-sm-8'>\n" +
+            "                            <input disabled=\"\" type='hidden' class='form-control1' id='inputidreserva' placeholder='Default Input' value='" + datos[0]["id"] + "'>\n" +
 
-    //Variables globales
-    // --TODO CAMBIAR A LOGOUT
-    REQUEST_ESTATUS = [
-        {code: 200, status: 'OK', respuesta: "Token de seguridad"},
-        {code: 400, status: 'Bad Request', respuesta: 'No username or password'},
-        {code: 401, Status: 'Unauthorized', respuesta: "Wrong user or password"}
-    ];
-    READY_STATE = [
-        {code: 1, respuesta: "Open"},
-        {code: 2, respuesta: "Headers received"},
-        {code: 3, respuesta: "Load"},
-        {code: 4, respuesta: "Completed"},
-    ]
-    alert("hola");
-    // Router page
-    $('a').on('click', function (e) {
+            "                            <input disabled=\"\" type='text' class='form-control1' id='focusedinput' placeholder='Default Input' value='" + datos[0]["habitacion"]["hotel"]["pin"] + "'>\n" +
+            "                        </div>\n" +
+            "                    </div><br>\n" +
+            "                    <div class='form-group'>\n" +
+            "                    <label for='focusedinput' class='col-sm-2 control-label'><p>Nombre</p></label>\n" +
+            "                        <div class='col-sm-8'>\n" +
+            "                            <input disabled=\"\" type='text' class='form-control1' id='focusedinput' placeholder='Default Input' value='" + datos[0]["habitacion"]["hotel"]["nombre"] + "'>\n" +
+            "                        </div>\n" +
+            "                    </div><br>\n" +
+            "                    <div class='form-group'>\n" +
+            "                    <label for='focusedinput' class='col-sm-2 control-label'><p>Habitación No</p></label>\n" +
+            "                        <div class='col-sm-8'>\n" +
+            "                            <input disabled=\"\" type='text' class='form-control1' id='focusedinput' placeholder='Default Input' value='" + datos[0]["habitacion"]["id"] + "'>\n" +
+            "                        </div>\n" +
+            "                    </div><br>\n" +
+            "                <input type='submit' class='submit' value='Confirm'>\n" +
+            "            </form>\n" +
+            "        </div>\n" +
+            "    </div>\n" +
+            "</div>";
+        $("#rooms").html(rooms);
 
-        // Evitar que se ejecute el evento por defecto que nos lleve a la pagina, pero nosotros no deseamos esto.
-        // necesitamos solo que nos realiza la peticion mediante este evento y ejecute esta funcion
-        e.preventDefault();
-        var routerPage = $(this).attr('href');
-        callPage(routerPage);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == "400") {
+            swal("Error", "No exsite la reserva en el hotel", "error");
+        } else if (jqXHR.status == "401") {
+            swal("Error", "No exsite la reserva en el hotel", "error");
+        } else {
+            swal("Error", "No exsite la reserva en el hotel", "error");
+        }
+    }).always(function (datos) {
+
     });
 
 
+});
 
-
-    function callPage(routerPageInput) {
-        var http_request = new XMLHttpRequest();
-        var url = routerPageInput;
-        urlPage = url;
-        http_request.open("GET", url, true);
-        http_request.responseType = 'text';
-        http_request.onload = TrataRespuesta;
-        http_request.send();
-        function TrataRespuesta() {
-            if (http_request.readyState == READY_STATE[3]["code"]) {
-                var Respuesta;
-                if (http_request.status == REQUEST_ESTATUS[0]["code"]) {
-                    Respuesta = http_request.response;
-                    if (urlPage == "confirm-reservation.html") {
-                        document.getElementById("contenidos").innerHTML = Respuesta;
-                        mapaInstalaciones();
-                    } else if (urlPage == "inicio.html") {
-                        document.getElementById("contenidos").innerHTML = Respuesta;
-
-                    } else if (urlPage == "login.html") {
-                        document.getElementById("contenidos").innerHTML = Respuesta;
-
-                    } else if (urlPage == "register.html") {
-                        document.getElementById("contenidos").innerHTML = Respuesta;
-
-                    } else {
-                        window.location = "index.html";
-                        // document.getElementById("contenidos").innerHTML = Respuesta;
-                    }
-                }
-                else
-                    alert("Ocurrio un problema con la URL.");
-            }
-        }
-    }
-
-    //GET parametros urlencode
-
-    function $_GET(q, s) {
-        s = s ? s : window.location.search;
-        var re = new RegExp('&' + q + '(?:=([^&]*))?(?=&|$)', 'i');
-        return (s = s.replace(/^[?]/, '&').match(re)) ? (typeof s[1] == 'undefined' ? '' : decodeURIComponent(s[1])) : undefined;
-    }
-
-
-
-
-
-    $(document).on("click", '#logout', function (e) {
-        if (sessionStorage.getItem('tokenTour')) {
-            sessionStorage.clear();
-            window.location = "index.html";
+$(document).on('submit', '#resconfirm', function (e) {
+    e.preventDefault();
+    idReserva = $("#inputidreserva").val();
+    $.ajax({
+        url: 'http://127.0.0.1:8001/' + idReserva + '/update',
+        type: 'GET',
+        data: null,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+    }).done(function (jqXHR, textStatus, xhr) {
+        var rooms = "";
+        swal("Inform", "Confirm reservation!!! ", "success");
+        $("#rooms").html(rooms);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == "400") {
+            swal("Error", "No exsite la reserva en el hotel", "error");
+        } else if (jqXHR.status == "401") {
+            swal("Error", "No exsite la reserva en el hotel", "error");
         } else {
-            window.location = "index.html";
+            swal("Error", "No exsite la reserva en el hotel", "error");
         }
-
     })
 
-})( window );
 
-
-
-$(document).on('submit', '#form', function (e) {
-    e.preventDefault();
-
-    //Save Parametros GET locales Authoritation
-    uname = document.getElementById("uname").value;
-    pass = document.getElementById("psw").value;
-    // var url = "http://fenw.etsisi.upm.es/login?userid=" + uname + "&password=" + pass;
-    var url = "http://salonso.etsisi.upm.es/fenw/padel/login.php?userid=" + uname + "&password=" + pass;
-    http_request.open("GET", url, true);
-    http_request.responseType = 'json';
-    http_request.onload = RequestLocalStorage;
-    http_request.send()
-
-    //Save session storage token
-    function RequestLocalStorage() {
-        var Respuesta;
-        if (http_request.status == REQUEST_ESTATUS[0]["code"]) {
-            Respuesta = http_request.response;
-            sessionStorage.setItem("tokenTour", Respuesta);
-            sessionStorage.setItem("uname", uname);
-            sessionStorage.setItem("psw", pass);
-            window.location = "index.html";
-
-        }
-        else
-            alert("Ocurrio un problema con la URL.");
-    }
-
-
-})
-
-
-
-
-
-
-
-
-
-
+});

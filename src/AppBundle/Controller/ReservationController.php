@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -17,13 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
 
-
-
-
-/**
- * @Rest\Route("api/v1/reservation")
- */
-class ReservationController extends Controller
+class ReservationController extends FOSRestController
 {
     /**
      * @Rest\Get("")
@@ -48,6 +43,7 @@ class ReservationController extends Controller
         }
         return $singleresult;
     }
+
     /**
      * @Rest\Get("/code/{codeReservation}")
      */
@@ -78,7 +74,6 @@ class ReservationController extends Controller
         } else {
             echo "Reserva no se ha actualizado";
         }
-        die();
     }
 
     /**
@@ -93,8 +88,7 @@ class ReservationController extends Controller
         $salida = $request->get('salida');
         $habitacion = $request->get('habitacion');
         $usuario = $request->get('usuario');
-        if(empty($fecha) || empty($entrada) || empty($salida) || empty($habitacion) || empty($usuario))
-        {
+        if (empty($fecha) || empty($entrada) || empty($salida) || empty($habitacion) || empty($usuario)) {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
 
