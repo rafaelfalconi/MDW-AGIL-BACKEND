@@ -19,6 +19,9 @@ use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
 use AppBundle\Controller\SendCustomerEmailController;
 
+/**
+ * @Rest\Route("api/v1/reservas")
+ */
 class ReservationController extends FOSRestController
 {
     /**
@@ -34,7 +37,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/reservas/hotel/{id}")
+     * @Rest\Get("/hotel/{id}")
      */
     public function getReservasByHotelAction($id)
     {
@@ -71,7 +74,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/{id}/update")
+     * @Rest\Put("/{id}")
      * @param $id
      */
     public function updateReserva($id)
@@ -90,7 +93,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/reserva")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {

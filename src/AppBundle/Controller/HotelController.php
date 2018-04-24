@@ -18,10 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Hotel;
 
+/**
+ * @Rest\Route("api/v1/hotels")
+ */
 class HotelController extends FOSRestController
 {
     /**
-     * @Rest\Get("hotels")
+     * @Rest\Get("")
      */
     public function getAction()
     {
