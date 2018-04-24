@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UsuarioControllerTest extends WebTestCase
 {
-    const RUTA_API1='/user';
+    const RUTA_API1='api/v1/user';
 
     public function testPostUserCreateAction201()
     {

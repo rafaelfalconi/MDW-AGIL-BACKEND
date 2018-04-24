@@ -22,7 +22,7 @@ use AppBundle\Controller\SendCustomerEmailController;
 /**
  * @Rest\Route("api/v1/reservas")
  */
-class ReservationController extends FOSRestController
+class ReservaController extends FOSRestController
 {
     /**
      * @Rest\Get("")
@@ -74,7 +74,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/{id}")
+     * @Rest\Put("/{id}/update")
      * @param $id
      */
     public function updateReserva($id)
