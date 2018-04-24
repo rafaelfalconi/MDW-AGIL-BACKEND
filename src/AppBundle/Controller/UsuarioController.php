@@ -19,11 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Usuario;
 
+/**
+ * @Rest\Route("api/v1/users")
+ */
+
 class UsuarioController extends FOSRestController
 {
 
     /**
-     * @Rest\Post("/user")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {

@@ -19,7 +19,10 @@ use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
 use AppBundle\Controller\SendCustomerEmailController;
 
-class ReservationController extends FOSRestController
+/**
+ * @Rest\Route("api/v1/reservas")
+ */
+class ReservaController extends FOSRestController
 {
     /**
      * @Rest\Get("")
@@ -27,6 +30,18 @@ class ReservationController extends FOSRestController
     public function getAction()
     {
         $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAll();
+        if ($restresult === null) {
+            return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
+        }
+        return $restresult;
+    }
+
+    /**
+     * @Rest\Get("/hotel/{id}")
+     */
+    public function getReservasByHotelAction($id)
+    {
+        $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAllReservasByHotel($id);
         if ($restresult === null) {
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
         }
@@ -59,7 +74,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/{id}/update")
+     * @Rest\Put("/{id}/update")
      * @param $id
      */
     public function updateReserva($id)
@@ -78,7 +93,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/reserva")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {
