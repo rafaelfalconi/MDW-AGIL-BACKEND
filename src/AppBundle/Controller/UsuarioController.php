@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Mapping\Id;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -18,11 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Usuario;
 
+/**
+ * @Rest\Route("/users")
+ */
+
 class UsuarioController extends FOSRestController
 {
 
     /**
-     * @Rest\Post("/user")
+     * @Rest\Post("")
      */
     public function postAction(Request $request)
     {
@@ -34,12 +39,15 @@ class UsuarioController extends FOSRestController
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
         $em = $this->getDoctrine()->getManager();
-        $criteria = new Criteria();
+       /* $criteria = new Criteria();
         $criteria
             ->where($criteria::expr()->eq('email', $username ));
         $user_exist = $em
             ->getRepository(Usuario::class)
-            ->matching($criteria);
+            ->matching($criteria);*/
+        $user_exist = $em
+            ->getRepository(Usuario::class)
+            ->findBy(['email' => $username]);
 
         if (!count($user_exist)) {
 
@@ -47,10 +55,10 @@ class UsuarioController extends FOSRestController
             $usuario->setClave($username . mt_rand(0, 1000000));
             $em->persist($usuario);
             $em->flush();
-            return new View("OK", Response::HTTP_CREATED);
+            return new View($usuario->getId(), Response::HTTP_CREATED);
         }
-
-        return new View("OK", Response::HTTP_OK);
+        $usuario = $user_exist[0];
+        return new View($usuario->getId(), Response::HTTP_OK);
 
     }
 
