@@ -69,7 +69,7 @@ $(document).on('submit', '#reserva', function (e) {
     var $this = $(this);
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/user',
+        url: 'http://127.0.0.1:8000/api/v1/users',
         type: 'POST',
         data: new FormData($this[0]),
         async: true,
@@ -93,7 +93,7 @@ function addReserva($this, usuario) {
     var formData = new FormData($this[0]);
     formData.append("usuario", usuario);
     $.ajax({
-        url: 'http://127.0.0.1:8000/reserva',
+        url: 'http://127.0.0.1:8000/api/v1/reservas',
         type: 'POST',
         data: formData,
         async: true,
