@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
+use AppBundle\Controller\SendCustomerEmailController;
 
 class ReservationController extends FOSRestController
 {
@@ -26,6 +27,18 @@ class ReservationController extends FOSRestController
     public function getAction()
     {
         $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAll();
+        if ($restresult === null) {
+            return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
+        }
+        return $restresult;
+    }
+
+    /**
+     * @Rest\Get("/reservas/hotel/{id}")
+     */
+    public function getReservasByHotelAction($id)
+    {
+        $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAllReservasByHotel($id);
         if ($restresult === null) {
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
         }
@@ -83,28 +96,34 @@ class ReservationController extends FOSRestController
     {
 
         $reserva = new Reserva;
+        $sendEmail = new SendCustomerEmailController;
+
         $fecha = $request->get('fecha');
         $entrada = $request->get('entrada');
         $salida = $request->get('salida');
         $habitacion = $request->get('habitacion');
         $usuario = $request->get('usuario');
+        $customerEmail = $request->get('username');
         if (empty($fecha) || empty($entrada) || empty($salida) || empty($habitacion) || empty($usuario)) {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $habitacion = $this->getDoctrine()->getRepository('AppBundle:Habitacion')->find($habitacion);
         $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($usuario);
-
+        $codigo=mt_rand(0, 1000000);
+        $precio=($salida-$entrada)*$habitacion->getPrecio();
         $reserva->setFecha(new \DateTime($fecha));
         $reserva->setEstado(false);
         $reserva->setEntrada($entrada);
         $reserva->setSalida($salida);
-        $reserva->setCodigo(mt_rand(0, 1000000));
+        $reserva->setCodigo($codigo);
         $reserva->setHabitacion($habitacion);
         $reserva->setUsuario($usuario);
         $em = $this->getDoctrine()->getManager();
         $em->persist($reserva);
         $em->flush();
+
+        //$sendEmail->sendCustomerEmail($codigo, $precio, 'a@a.a', "manager@a.a", $customerEmail);
         return new View("Reserva Added Successfully", Response::HTTP_OK);
 
     }
