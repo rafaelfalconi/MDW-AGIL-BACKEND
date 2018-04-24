@@ -14,11 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Reserva;
 
-
+/**
+ * @Rest\Route("api/v1/habitaciones")
+ */
 class HabitacionController extends FOSRestController
 {
     /**
-     * @Rest\GET("/habitaciones")
+     * @Rest\GET()
      */
     public function getAction(Request $request)
     {
