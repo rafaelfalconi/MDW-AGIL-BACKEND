@@ -62,6 +62,26 @@ class ReservationControllerTest extends  WebTestCase
         self::assertTrue($respose->isSuccessful());
 
     }
+    public function testPost(){
 
+        $data = array(
+            'fecha' => '04/27/2999',
+            'entrada' => 20,
+            'salida' => '24',
+            'habitacion' => 1,
+            'usuario' => 1,
+        );
+        $client = static::createClient();
+        $client->request('POST', self::RUTA_API1,$data);
+        $response= $client->getResponse();
+        self::assertTrue($response->isSuccessful());
+        self::assertJson($response->getContent());
 
+        //delete reserva test
+        $client = static::createClient();
+        $client->request('DELETE', 'api/v1/reservas/'.$response->getContent());
+        $response= $client->getResponse();
+        self::assertTrue($response->isSuccessful());
+        self::assertJson($response->getContent());
+    }
 }
