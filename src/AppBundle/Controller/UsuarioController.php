@@ -20,7 +20,7 @@ use FOS\RestBundle\View\View;
 use AppBundle\Entity\Usuario;
 
 /**
- * @Rest\Route("/users")
+ * @Rest\Route("api/v1/users")
  */
 
 class UsuarioController extends FOSRestController

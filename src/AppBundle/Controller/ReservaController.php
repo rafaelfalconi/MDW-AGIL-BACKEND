@@ -22,13 +22,22 @@ use AppBundle\Controller\SendCustomerEmailController;
 /**
  * @Rest\Route("api/v1/reservas")
  */
-class ReservationController extends FOSRestController
+class ReservaController extends FOSRestController
 {
+
+//    /**
+//     * @Route("/confirm", name="confirm")
+//     */
+//    public function confirmAction()
+//    {
+//        return $this->render('@App/reserva/reservation-confirm.html.twig');
+//    }
     /**
-     * @Rest\Get("")
+     * @Rest\Get("/")
      */
     public function getAction()
     {
+
         $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAll();
         if ($restresult === null) {
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
@@ -74,7 +83,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/{id}")
+     * @Rest\Put("/{id}/update")
      * @param $id
      */
     public function updateReserva($id)
@@ -127,8 +136,24 @@ class ReservationController extends FOSRestController
         $em->flush();
 
         //$sendEmail->sendCustomerEmail($codigo, $precio, 'a@a.a', "manager@a.a", $customerEmail);
-        return new View("Reserva Added Successfully", Response::HTTP_OK);
+        return new View($reserva->getId(), Response::HTTP_OK);
 
+    }
+    /**
+     * @Rest\Delete("/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $sn = $this->getDoctrine()->getManager();
+        $reserva = $this->getDoctrine()->getRepository('AppBundle:Reserva')->find($id);
+        if (empty($reserva)) {
+            return new View("reserva not found", Response::HTTP_NOT_FOUND);
+        }
+        else {
+            $sn->remove($reserva);
+            $sn->flush();
+        }
+        return new View("deleted successfully", Response::HTTP_OK);
     }
 
 }

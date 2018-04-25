@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+
+    <div class="about-bottom" id="ab">
+        <div class="col-md-12 ">
+            <h3 class="tittle why">ROOM CONFIRMATION</h3>
+            <div class="book-form">
+                <form id="reservas" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Reservation code</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control1" id="focusedinput" placeholder="Ingrese codigo">
+                        </div>
+
+                        <div class="make wow shake" data-wow-duration="1s" data-wow-delay=".5s">
+                            <input type="submit" value="Search">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="rooms" class="container">
+            <!--Your code report confirm-reservation.html-->
+        </div>
+    </div>
+    <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('js/reservas.js') }}"></script>
+
+
+{% endblock %}
