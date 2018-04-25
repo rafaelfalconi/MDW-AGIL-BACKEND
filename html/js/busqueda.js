@@ -1,4 +1,4 @@
-var url_="http://127.0.0.1:8000//api/v1/";
+var url_="http://127.0.0.1:8000/api/v1/";
 $(document).on('submit', '#search-room', function (e) {
     e.preventDefault();
 
@@ -8,7 +8,7 @@ $(document).on('submit', '#search-room', function (e) {
         swal("Seleccione una fecha");
     } else {
         $.ajax({
-            url: url_+'abitaciones',
+            url: url_+'habitaciones',
             type: 'GET',
             data: $(this).serialize(),
             async: true,
