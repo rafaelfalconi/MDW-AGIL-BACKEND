@@ -35,7 +35,7 @@ $(document).on('submit', '#search-room', function (e) {
                 rooms += "<div class='col-md-12'>";
                 rooms += "<h3>Costo: €" + habitaciones.habitacion.precio + " por hora</h3>"
                 rooms += "</div>";
-                rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='" + fecha + "' name='" + ingreso + "' data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
+                rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='" + fecha + "' name='" + ingreso + "' type='"+habitaciones.salida+"'  data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
                 rooms += "</div>";
                 rooms += "</div>";
             });
@@ -63,12 +63,15 @@ $('#rooms').on("click", '.habitaciones', function () {
     $("#habitacion").val($(this).attr("id"));
     $("#fecha").val($(this).attr("title"));
     $("#entrada").val($(this).attr("name"));
+    $("#maxdisponible").val($(this).attr("type"));
+
+
 });
 
 $(document).on('submit', '#reserva', function (e) {
     e.preventDefault();
     var $this = $(this);
-
+    console.log($this);
     $.ajax({
         url:  url_+'users',
         type: 'POST',
