@@ -62,7 +62,7 @@ $(document).on('submit', '#reservas', function (e) {
 
 $(document).on('submit', '#resconfirm', function (e) {
     e.preventDefault();
-    alert("hoal")
+    alert("hotel mundo");
     idReserva = $("#inputidreserva").val();
     $.ajax({
         url: 'http://127.0.0.1:8001/reservas/' + idReserva + '/update',

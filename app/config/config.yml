@@ -18,7 +18,7 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: { enable_annotations: true }
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -79,13 +79,11 @@ nelmio_cors:
 
 # FOSRest Configuration
 fos_rest:
-    body_listener: true
-    versioning: true
-    format_listener:
-        rules:
-            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
-    param_fetcher_listener: true
     view:
         view_response_listener: 'force'
         formats:
             json: true
+    format_listener:
+        rules:
+            - { path: ^/api/, priorities: [ json ], fallback_format: json, prefer_extension: true }
+            - { path: ^/,stop:true }
