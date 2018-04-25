@@ -1,3 +1,4 @@
+var url_="http://127.0.0.1:8000/api/v1/";
 $(document).on('submit', '#search-room', function (e) {
     e.preventDefault();
 
@@ -7,7 +8,7 @@ $(document).on('submit', '#search-room', function (e) {
         swal("Seleccione una fecha");
     } else {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/v1/habitaciones',
+            url: url_+'habitaciones',
             type: 'GET',
             data: $(this).serialize(),
             async: true,
@@ -69,7 +70,7 @@ $(document).on('submit', '#reserva', function (e) {
     var $this = $(this);
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/v1/users',
+        url:  url_+'users',
         type: 'POST',
         data: new FormData($this[0]),
         async: true,
@@ -93,7 +94,7 @@ function addReserva($this, usuario) {
     var formData = new FormData($this[0]);
     formData.append("usuario", usuario);
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/v1/reservas',
+        url: url_+'reservas',
         type: 'POST',
         data: formData,
         async: true,

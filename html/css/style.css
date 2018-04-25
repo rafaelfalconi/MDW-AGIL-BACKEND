@@ -956,7 +956,8 @@ margin-bottom: 0.7em;
 .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     padding: 15px !important;
     font-size: 0.85em;
-    color: #999;
+    /*color: #999;*/
+    color: #000000;
     border-top: none !important;
 }
 .btn {
@@ -3954,7 +3955,8 @@ a.icon.gp {
 		.table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
 		padding: 0 5px !important;
 		font-size: 0.85em;
-		color: #999;
+        /*color: #999;*/
+        color: #000000;
 		border-top: none !important;
 	}
 	.w3_agile_mail_grid input[type="submit"] {

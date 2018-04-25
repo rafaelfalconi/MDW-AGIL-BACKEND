@@ -56,7 +56,7 @@ class HabitacionController extends FOSRestController
             }
             $query = $repository->createQueryBuilder('r')
                 ->where('r.salida > :entrada and r.fecha= :fecha and r.habitacion= :habitacion')
-                ->setParameters(array("entrada" =>  $resultA->getSalida(), "fecha" => $entrada, "habitacion" => $habitacion))
+                ->setParameters(array("entrada" => $resultA->getSalida(), "fecha" => $entrada, "habitacion" => $habitacion))
                 ->orderBy('r.entrada', 'ASC')
                 ->setMaxResults(1)
                 ->getQuery();
@@ -72,15 +72,15 @@ class HabitacionController extends FOSRestController
                 $resultB = $result[0];
             }
             $return = new Reserva();
-            if(($resultA->getSalida()>$resultB->getEntrada())||($request->get('hora') == $resultB->getEntrada()) || ($request->get('hora')< ($resultA->getSalida()+2))){
-
-            }elseif ($resultA->getEntrada() == $resultB->getEntrada()) {
+            if ($resultB->getEntrada() == 24 && $resultA->getEntrada() == 24) {
                 $return->setEntrada($request->get('hora'));
                 $return->setSalida(24);
                 $return->setCodigo(0);
                 $return->setHabitacion($habitacion);
                 array_push($arrayresult, $return);
-            } else{
+            } elseif (($resultA->getSalida() > $resultB->getEntrada()) || ($request->get('hora') == $resultB->getEntrada()) || ($request->get('hora') < ($resultA->getSalida() + 2))) {
+
+            }  else {
                 $return->setEntrada($request->get('hora'));
                 $return->setSalida($resultB->getEntrada());
                 $return->setCodigo(0);

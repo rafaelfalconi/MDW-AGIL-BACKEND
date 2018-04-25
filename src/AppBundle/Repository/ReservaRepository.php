@@ -16,6 +16,9 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder("reserva")
             ->join('reserva.habitacion', 'habitacion')
             ->join('habitacion.hotel', 'hotel')
+            ->select('reserva.fecha','reserva.id','reserva.estado',
+                            'reserva.entrada','reserva.salida',
+                            'reserva.codigo','habitacion.precio')
             ->where('hotel.id = :id')
             ->setParameter('id', $id);
 
