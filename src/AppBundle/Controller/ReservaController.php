@@ -24,16 +24,8 @@ use AppBundle\Controller\SendCustomerEmailController;
  */
 class ReservaController extends FOSRestController
 {
-
-//    /**
-//     * @Route("/confirm", name="confirm")
-//     */
-//    public function confirmAction()
-//    {
-//        return $this->render('@App/reserva/reservation-confirm.html.twig');
-//    }
     /**
-     * @Rest\Get("/")
+     * @Rest\Get("")
      */
     public function getAction()
     {
