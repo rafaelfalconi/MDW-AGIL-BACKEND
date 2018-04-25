@@ -1,20 +1,3 @@
-var BASE_URL = "http://localhost:8000/";
-
-$.getJSON(BASE_URL+"api/v1/hotels",function(data){
-    $.each(data,function(key,value){
-        $('#hotels').append('<option value=' + value.id + '>' + value.nombre + '</option>');
-    });
-});
-
-$("#hotels").change(function() {
-    $('#reservations').html('');
-    $.getJSON(BASE_URL+"api/v1/reservas/hotel/"+this.value,function(data){
-        $.each(data,function(key,value){
-            $('#reservations').append('<tr> <td>'+value.fecha+'</td> <td>'+value.codigo+'</td> <td>'+value.precio+'</td> <td>'+value.entrada+'</td> <td>'+value.salida+'</td> <td>'+value.estado+'</td> </tr>');
-        });
-    });
-});
-
 $(document).on('submit', '#reservas', function (e) {
     e.preventDefault();
     alert("hotel mundo");
@@ -79,7 +62,7 @@ $(document).on('submit', '#reservas', function (e) {
 
 $(document).on('submit', '#resconfirm', function (e) {
     e.preventDefault();
-    alert("hoal")
+    alert("hotel mundo");
     idReserva = $("#inputidreserva").val();
     $.ajax({
         url: 'http://127.0.0.1:8001/reservas/' + idReserva + '/update',
