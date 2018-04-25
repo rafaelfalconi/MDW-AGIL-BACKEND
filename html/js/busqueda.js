@@ -1,3 +1,4 @@
+var url_="http://127.0.0.1:8000/api/v1/";
 $(document).on('submit', '#search-room', function (e) {
     e.preventDefault();
 
@@ -7,18 +8,21 @@ $(document).on('submit', '#search-room', function (e) {
         swal("Seleccione una fecha");
     } else {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/v1/habitaciones',
+            url: url_+'habitaciones',
             type: 'GET',
             data: $(this).serialize(),
             async: true,
             cache: false,
             contentType: false,
             processData: false,
+            beforeSend:function (xhr) {
+                var rooms = "<h3>Cargando Habitaciones...</h3>";
+                $("#rooms").html(rooms);
+            }
+
         }).done(function (datos, textStatus, xhr) {
             var rooms = "";
             $.each(datos, function (i, habitaciones) {
-                tiempo = (parseInt(habitaciones.entrada));
-                tiempoEntrada=parseInt(habitaciones.salida)+2
                 rooms += "<div class='col-md-12 table-bordered'>";
                 rooms += "<div class='col-md-3 col-lg-3'><img src='http://www.samanahotel.com.pe/images/habitacion-simple1.jpg' class='img-responsive'></div>"
                 rooms += "<div class='col-md-9 col-lg-9'>";
@@ -26,40 +30,19 @@ $(document).on('submit', '#search-room', function (e) {
                 rooms += "<h3>Tipo de habitación: sencilla</h3>"
                 rooms += "</div>";
                 rooms += "<div class='col-md-12'>";
-                console.log(tiempoEntrada+" "+parseInt(ingreso));
-                if (parseInt(ingreso) == parseInt(habitaciones.entrada)) {
-                    rooms += "<h3>No Disponible</h3>"
-                } else if (24 == parseInt(habitaciones.entrada)) {
-                    rooms += "<h3>Disponible: " + ingreso + ":00H -" + tiempo + ":00H</h3>"
-                } else if (parseInt(habitaciones.salida) >= parseInt(ingreso)) {
-                    rooms += "<h3>No Disponible</h3>"
-                } else if(tiempoEntrada <= parseInt(ingreso)){
-                    let ingresoRoom = 0;
-                    rooms += "<h3>Disponible: " + ingreso + ":00H -" + tiempo + ":00H</h3>"
-                }else{
-                    rooms += "<h3>No Disponible</h3>"
-                }
+                rooms += "<h3>Disponible: " + habitaciones.entrada + ":00H -" + habitaciones.salida + ":00H</h3>"
                 rooms += "</div>";
                 rooms += "<div class='col-md-12'>";
                 rooms += "<h3>Costo: €" + habitaciones.habitacion.precio + " por hora</h3>"
                 rooms += "</div>";
-                if (parseInt(ingreso) == parseInt(habitaciones.entrada)) {
-                    rooms += "<div class='col-md-12' ></div>";
-                } else if (24 == parseInt(habitaciones.entrada)) {
-                    rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='" + fecha + "' name='" + ingreso + "' data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
-                } else if (parseInt(habitaciones.salida) >= parseInt(ingreso)) {
-                    rooms += "<div class='col-md-12' ></div>";
-                } else if(tiempoEntrada <= parseInt(ingreso)){
-                    rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='" + fecha + "' name='" + ingreso + "' data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
-                }else{
-                    rooms += "<div class='col-md-12' ></div>";
-                }
-
+                rooms += "<div class='col-md-12' ><button class='btn-danger btn habitaciones' id='" + habitaciones.habitacion.id + "' title='" + fecha + "' name='" + ingreso + "' data-toggle='modal' data-target='#myModal'>Reservar</button></div>";
                 rooms += "</div>";
                 rooms += "</div>";
             });
             $("#rooms").html(rooms);
         }).fail(function (jqXHR, textStatus, errorThrown) {
+            var rooms = "";
+            $("#rooms").html(rooms);
             if (jqXHR.status == "400") {
                 swal("No hay habitaciones disponibles");
             } else if (jqXHR.status == "401") {
@@ -87,7 +70,7 @@ $(document).on('submit', '#reserva', function (e) {
     var $this = $(this);
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/user',
+        url:  url_+'users',
         type: 'POST',
         data: new FormData($this[0]),
         async: true,
@@ -111,7 +94,7 @@ function addReserva($this, usuario) {
     var formData = new FormData($this[0]);
     formData.append("usuario", usuario);
     $.ajax({
-        url: 'http://127.0.0.1:8000/reserva',
+        url: url_+'reservas',
         type: 'POST',
         data: formData,
         async: true,
