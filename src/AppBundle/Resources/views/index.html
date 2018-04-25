@@ -1,0 +1,162 @@
+
+<!--/main-header-->
+<!--/banner-section-->
+<div class="w3layouts-top-strip">
+    <div class="top-srip-agileinfo">
+        <div class="w3ls-social-icons text-left">
+            <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+            <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+            <a class="pinterest" href="#"><i class="fa fa-pinterest-p"></i></a>
+            <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+
+        </div>
+        <div class="agileits-contact-info text-right">
+            <ul>
+                <li><i class="fa fa-volume-control-phone" aria-hidden="true"></i> +090 480 088</li>
+                <li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="mailto:info@example.com">mail@example.com</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="demo-inner-content">
+    <!--/header-w3l-->
+    <div class="header-w3-agileits" id="home">
+        <div class="inner-header-agile">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+
+                    <h1><a href="index.html"><span>R</span>eservas <p class="s-log">Buking</p></a>
+
+                    </h1>
+                </div>
+                <!-- navbar-header -->
+
+            </nav>
+
+
+        </div>
+
+        <!--/banner-ingo-->
+
+    </div>
+</div>
+</div>
+
+<div class="about-bottom" id="ab">
+    <div class="col-md-12 ">
+        <h3 class="tittle why">Search a Room</h3>
+        <div class="book-form">
+
+            <form id="search-room">
+
+                <div class="col-md-6 form-date-w3-agileits">
+                    <label><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de ingreso :</label>
+                    <input id="datepicker" id="date-search" name="fecha" type="text" value="yyyy/mm/dd"
+                           onfocus="this.value = '';"
+                           onblur="if (this.value == '') {this.value = 'yyyy/mm/dd';}" required="">
+
+                </div>
+                <div class="col-md-6 form-time-w3layouts second-agile">
+                    <label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de entrada :</label>
+                    <select id="hour-search" name="hora">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="make wow shake" data-wow-duration="1s" data-wow-delay=".5s">
+                    <input type="submit" value="Search">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="clearfix"></div>
+</div>
+<!-- //about -->
+<!-- /plans -->
+<div class="plans-section">
+    <div class="container">
+        <h3 class="w3l-inner-h-title">Rooms </h3>
+        <div id="rooms" class="container">
+
+        </div>
+    </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reserva</h4>
+        </div>
+        <div class="modal-body">
+			<div class="book-form">
+				<form id="reserva">
+		
+					<div class="col-md-12 form-time-w3layouts second-agile">
+						<label><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de llegada :</label>
+						<input type="hidden" id="habitacion" name="habitacion"  >	
+						<input type="hidden" id="usuario" name="usuario" value="1" >						
+						<input id="fecha"  name="fecha" type="text" value="yyyy/mm/dd" readonly="readonly">	   
+					</div>
+					<div class="col-md-12 form-time-w3layouts second-agile">
+						<label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de entrada :</label>
+						<input id="entrada"  name="entrada" type="text" readonly="readonly">
+					</div>
+					<div class="col-md-12 form-time-w3layouts second-agile">
+						<label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de salida:</label>
+						<input id="salida"  name="salida" type="text">
+					</div>
+					<div class="col-md-12 form-time-w3layouts second-agile">
+						<label><i class="fa email" aria-hidden="true"></i> E-mail :</label>
+						<input id="username"  name="username" type="text" >
+					</div>
+					<div class="clearfix"></div>
+					<div class="make wow shake" data-wow-duration="1s" data-wow-delay=".5s">
+						<input type="submit" value="Reservar">
+					</div>
+				</form>
+			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
