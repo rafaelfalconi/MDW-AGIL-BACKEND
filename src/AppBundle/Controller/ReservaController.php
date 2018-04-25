@@ -22,7 +22,7 @@ use AppBundle\Controller\SendCustomerEmailController;
 /**
  * @Rest\Route("api/v1/reservas")
  */
-class ReservationController extends FOSRestController
+class ReservaController extends FOSRestController
 {
     /**
      * @Rest\Get("")
@@ -74,7 +74,7 @@ class ReservationController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/{id}")
+     * @Rest\Put("/{id}/update")
      * @param $id
      */
     public function updateReserva($id)
@@ -127,8 +127,24 @@ class ReservationController extends FOSRestController
         $em->flush();
 
         //$sendEmail->sendCustomerEmail($codigo, $precio, 'a@a.a', "manager@a.a", $customerEmail);
-        return new View("Reserva Added Successfully", Response::HTTP_OK);
+        return new View($reserva->getId(), Response::HTTP_OK);
 
+    }
+    /**
+     * @Rest\Delete("/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $sn = $this->getDoctrine()->getManager();
+        $reserva = $this->getDoctrine()->getRepository('AppBundle:Reserva')->find($id);
+        if (empty($reserva)) {
+            return new View("reserva not found", Response::HTTP_NOT_FOUND);
+        }
+        else {
+            $sn->remove($reserva);
+            $sn->flush();
+        }
+        return new View("deleted successfully", Response::HTTP_OK);
     }
 
 }
