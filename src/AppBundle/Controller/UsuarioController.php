@@ -36,7 +36,7 @@ class UsuarioController extends FOSRestController
         $username = $request->get('username');
         if(empty($username))
         {
-            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+            return new View("LOS CAMPOS VACIOS NO ESTAN PERMITIDOS", Response::HTTP_NOT_ACCEPTABLE);
         }
         $em = $this->getDoctrine()->getManager();
        /* $criteria = new Criteria();
