@@ -4,7 +4,7 @@ $(document).on('submit', '#search-room', function (e) {
 
     ingreso = $("#hour-search option:selected").val();
     var fecha = $("#datepicker").val();
-    if ("yyyy/mm/dd" == fecha) {a
+    if ("yyyy/mm/dd" == fecha) {
         swal("Seleccione una fecha");
     } else {
         $.ajax({
