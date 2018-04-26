@@ -29,6 +29,7 @@ class ReservaController extends FOSRestController
      */
     public function getAction()
     {
+
         $restresult = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findAll();
         if ($restresult === null) {
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
@@ -61,14 +62,13 @@ class ReservaController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/code/{codeReservation}")
+     * @Rest\Get("/code/{codeR}/hotel/{pinH}")
      */
-    public function confirmReservationAction($codeReservation)
+    public function confirmReservationAction($codeR, $pinH)
     {
-        $em = $this->getDoctrine()->getManager();
-        $reservafind = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findBy(['codigo' => $codeReservation]);
+        $reservafind = $this->getDoctrine()->getRepository('AppBundle:Reserva')->findOneReservaByCodeHotelPin($codeR, $pinH);
         if (empty($reservafind)) {
-            return new View("Categoría no encontrada", Response::HTTP_NOT_FOUND);
+            return new View("Reservation not found", Response::HTTP_NOT_FOUND);
         }
         return $reservafind;
     }
@@ -107,14 +107,20 @@ class ReservaController extends FOSRestController
         $habitacion = $request->get('habitacion');
         $usuario = $request->get('usuario');
         $customerEmail = $request->get('username');
+        $maxDisponible = $request->get('maxdisponible');
         if (empty($fecha) || empty($entrada) || empty($salida) || empty($habitacion) || empty($usuario)) {
-            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+            return new View("LOS CAMPOS VACIOS NO ESTAN PERMITIDOS", Response::HTTP_NOT_ACCEPTABLE);
         }
-
+        if ($salida <= $entrada) {
+            return new View("HORA DE SALIDA DEBE SER MAYOR A HORA DE ENTRADA", Response::HTTP_NOT_ACCEPTABLE);
+        }
+        if ($salida > $maxDisponible) {
+            return new View("HORA DE SALIDA NO PUEDE SER MAYOR A " . $maxDisponible . ":00H", Response::HTTP_NOT_ACCEPTABLE);
+        }
         $habitacion = $this->getDoctrine()->getRepository('AppBundle:Habitacion')->find($habitacion);
         $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($usuario);
-        $codigo=mt_rand(0, 1000000);
-        $precio=($salida-$entrada)*$habitacion->getPrecio();
+        $codigo = mt_rand(0, 1000000);
+        $precio = ($salida - $entrada) * $habitacion->getPrecio();
         $reserva->setFecha(new \DateTime($fecha));
         $reserva->setEstado(false);
         $reserva->setEntrada($entrada);
@@ -130,6 +136,7 @@ class ReservaController extends FOSRestController
         return new View($reserva->getId(), Response::HTTP_OK);
 
     }
+
     /**
      * @Rest\Delete("/{id}")
      */
@@ -138,13 +145,12 @@ class ReservaController extends FOSRestController
         $sn = $this->getDoctrine()->getManager();
         $reserva = $this->getDoctrine()->getRepository('AppBundle:Reserva')->find($id);
         if (empty($reserva)) {
-            return new View("reserva not found", Response::HTTP_NOT_FOUND);
-        }
-        else {
+            return new View("RESERVA NO ENCONTRADA", Response::HTTP_NOT_FOUND);
+        } else {
             $sn->remove($reserva);
             $sn->flush();
         }
-        return new View("deleted successfully", Response::HTTP_OK);
+        return new View("BORRADO EXITOSAMENTE", Response::HTTP_OK);
     }
 
 }

@@ -17,10 +17,11 @@ $("#hotels").change(function() {
 
 $(document).on('submit', '#reservas', function (e) {
     e.preventDefault();
+    alert("hotel mundo");
     codeReservation = $("#focusedinput").val();
 
     $.ajax({
-        url: 'http://127.0.0.1:8001/code/' + codeReservation,
+        url: 'http://127.0.0.1:8001/reservas/code/' + codeReservation,
         type: 'GET',
         data: null,
         async: true,
@@ -78,9 +79,10 @@ $(document).on('submit', '#reservas', function (e) {
 
 $(document).on('submit', '#resconfirm', function (e) {
     e.preventDefault();
+    alert("hoal")
     idReserva = $("#inputidreserva").val();
     $.ajax({
-        url: 'http://127.0.0.1:8001/' + idReserva + '/update',
+        url: 'http://127.0.0.1:8001/reservas/' + idReserva + '/update',
         type: 'GET',
         data: null,
         async: true,
