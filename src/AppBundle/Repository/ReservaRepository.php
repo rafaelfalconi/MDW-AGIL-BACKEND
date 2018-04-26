@@ -11,14 +11,30 @@ namespace AppBundle\Repository;
 class ReservaRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function findOneReservaByCodeHotelPin($codeR, $pinH)
+    {
+        $query = $this->createQueryBuilder("reserva")
+            ->join('reserva.habitacion', 'habitacion')
+            ->join('habitacion.hotel', 'hotel')
+            ->select('reserva')
+            ->where('reserva.codigo = :code and hotel.pin = :pin')
+            ->setParameter('code', $codeR)
+            ->setParameter('pin', $pinH);
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
+
+
     public function findAllReservasByHotel($id)
     {
         $query = $this->createQueryBuilder("reserva")
             ->join('reserva.habitacion', 'habitacion')
             ->join('habitacion.hotel', 'hotel')
-            ->select('reserva.fecha','reserva.id','reserva.estado',
-                            'reserva.entrada','reserva.salida',
-                            'reserva.codigo','habitacion.precio')
+            ->select('reserva.fecha', 'reserva.id', 'reserva.estado',
+                'reserva.entrada', 'reserva.salida',
+                'reserva.codigo', 'habitacion.precio')
             ->where('hotel.id = :id')
             ->setParameter('id', $id);
 
