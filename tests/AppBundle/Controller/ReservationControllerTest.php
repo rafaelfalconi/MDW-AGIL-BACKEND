@@ -121,10 +121,11 @@ class ReservationControllerTest extends WebTestCase
 
         $data = array(
             'fecha' => '04/27/2999',
-            'entrada' => 20,
-            'salida' => '24',
+            'entrada' => 16,
+            'salida' => '20',
             'habitacion' => 1,
             'usuario' => 1,
+            'maxdisponible' => 22,
         );
         $client = static::createClient();
         $client->request('POST', self::RUTA_API1, $data);

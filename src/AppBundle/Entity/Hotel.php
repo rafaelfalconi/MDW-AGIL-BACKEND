@@ -15,6 +15,13 @@ class Hotel
     /**
      * @var string
      *
+     * @ORM\Column(name="Email", type="string", length=45, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Nombre", type="string", length=45, nullable=true)
      */
     private $nombre;
@@ -128,6 +135,24 @@ class Hotel
     {
         $this->id = $id;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+
 
 
 }
