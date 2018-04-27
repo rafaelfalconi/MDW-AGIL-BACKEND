@@ -34,8 +34,8 @@ $(document).on('submit', '#reservas', function (e) {
             rooms += "<div class=\"w3l-footer\">\n" +
                 "    <div class=\"container\">\n" +
                 "        <div class=\"connect-agileits newsletter\">\n" +
-                "            <h4>Confirmation Report</h4>\n" +
-                "            <p>Condirmation of the reservation code with the pin of the hotel.</p>\n" +
+                "            <h4>Reporte de confirmación</h4>\n" +
+                "            <p>Confirmación del código de reserva con el pin del hotel.</p>\n" +
                 "            <form id='resconfirm' action=\"#\" method=\"post\" class='form-horizontal'>\n" +
                 "                    <div class='form-group'>\n" +
                 "                    <label for='focusedinput' class='col-sm-2 control-label'><p>PIN</p></label>\n" +
