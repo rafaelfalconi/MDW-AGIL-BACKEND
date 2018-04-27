@@ -20,4 +20,12 @@ class ReservaViewController extends Controller
     {
         return $this->render('@App/reserva/reservation-confirm.html.twig');
     }
+
+    /**
+     * @Route("/admin/reservations", name="reservations")
+     */
+    public function reservationsAction()
+    {
+        return $this->render('@App/admin/reservation-report.html.twig');
+    }
 }
