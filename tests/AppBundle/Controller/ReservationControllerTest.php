@@ -33,8 +33,6 @@ class ReservationControllerTest extends WebTestCase
     }
 
 
-    const RUTA_API2 = 'api/v1/reservas/1';
-
     public function testGetRerservationById200()
     {
         $client = static::createClient();
@@ -47,32 +45,6 @@ class ReservationControllerTest extends WebTestCase
 
     }
 
-    const RUTA_API3 = 'api/v1/reservas/code/0425/hotel/0112';
-
-    public function testGetRerservationByCodigo200()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', self::RUTA_API3);
-        $respose = $client->getResponse();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        self::assertTrue($respose->isSuccessful());
-        self::assertJson($respose->getContent());
-
-    }
-
-    const RUTA_API4 = 'api/v1/reservas/1/update';
-
-    public function testUpdateRerservationById204()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('PUT', self::RUTA_API4);
-        $respose = $client->getResponse();
-        $this->assertEquals(204, $client->getResponse()->getStatusCode());
-        self::assertTrue($respose->isSuccessful());
-
-    }
 
     public function testPost()
     {
@@ -90,43 +62,63 @@ class ReservationControllerTest extends WebTestCase
         $response = $client->getResponse();
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());
-
+        //Decode Json
+        $json = $response->getContent();
+        $arrReserva = json_decode($json, true);
         //delete reserva test
         $client = static::createClient();
-        $client->request('DELETE', 'api/v1/reservas/' . $response->getContent());
+        $client->request('DELETE', 'api/v1/reservas/' . $arrReserva['id']);
         $response = $client->getResponse();
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());
     }
 
 
-    const RUTA_API0 = 'api/v1/reservas';
 
     public function testCreateReservas()
     {
         $data = array(
-
-
             'fecha' => '04/27/2900',
-            'entrada' => 16,
-            'salida' => '20',
+            'entrada' => 12,
+            'salida' => '16',
             'habitacion' => 1,
             'usuario' => 1,
             'maxdisponible' => 22,
             'codigo' => '0425',
             'estado' => 0
         );
-
+        //Create new Rerva
         $client = static::createClient();
         $client->request('POST', self::RUTA_API1, $data);
         $response = $client->getResponse();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($response->isOk());
         $this->assertJson($response->getContent());
+        //Decode Json
+        $json = $response->getContent();
+        $arrReserva = json_decode($json, true);
+
+        //Buscar Reserva const
+        $RUTA_API3 = 'api/v1/reservas/code/' . $arrReserva['codigo'] . '/hotel/' . $arrReserva['habitacion']['hotel']['pin'];
+
+        $client = static::createClient();
+        $crawler = $client->request('GET', $RUTA_API3);
+        $respose = $client->getResponse();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        self::assertTrue($respose->isSuccessful());
+        self::assertJson($respose->getContent());
+
+        //actualizar reserva estado  RUTA_API4 = 'api/v1/reservas/1/update';
+        $RUTA_API4 = 'api/v1/reservas/' . $arrReserva['id'] . '/update';
+        $client = static::createClient();
+        $crawler = $client->request('PUT', $RUTA_API4);
+        $respose = $client->getResponse();
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+        self::assertTrue($respose->isSuccessful());
 
         //delete reserva test
         $client = static::createClient();
-        $client->request('DELETE', 'api/v1/reservas/' . $response->getContent());
+        $client->request('DELETE', 'api/v1/reservas/' . $arrReserva['id']);
         $response = $client->getResponse();
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());

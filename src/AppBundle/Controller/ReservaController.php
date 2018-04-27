@@ -42,8 +42,8 @@ class ReservaController extends FOSRestController
      */
     public function createAction(Request $request)
     {
-        $newreserva= new Reserva();
-        $newreserva= $request->get('reserva');
+        $newreserva = new Reserva();
+        $newreserva = $request->get('reserva');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($newreserva);
@@ -120,7 +120,7 @@ class ReservaController extends FOSRestController
         $reserva = new Reserva;
 
         $codigo = $request->get('codigo');
-        $estado= $request->get('estado');
+        $estado = $request->get('estado');
 
         $fecha = $request->get('fecha');
         $entrada = $request->get('entrada');
@@ -141,7 +141,10 @@ class ReservaController extends FOSRestController
         $habitacion = $this->getDoctrine()->getRepository('AppBundle:Habitacion')->find($habitacion);
         $hotel = $this->getDoctrine()->getRepository('AppBundle:Hotel')->find($habitacion->getId());
         $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($usuario);
-        $codigo = mt_rand(0, 1000000);
+        if (empty($codigo)) {
+            $codigo = mt_rand(0, 1000000);
+        }
+
         $precio = ($salida - $entrada) * $habitacion->getPrecio();
         $reserva->setFecha(new \DateTime($fecha));
         $reserva->setEstado(false);
@@ -155,10 +158,9 @@ class ReservaController extends FOSRestController
         $em->flush();
 
         $email = new SendEmailsController($this->container);
-        $email->reservationPaymentInfo($precio,$codigo,$hotel->getEmail(),$customerEmail);
+        $email->reservationPaymentInfo($precio, $codigo, $hotel->getEmail(), $customerEmail);
 
-        return new View($reserva->getId(), Response::HTTP_OK);
-
+        return new View($reserva, Response::HTTP_OK);
     }
 
     /**

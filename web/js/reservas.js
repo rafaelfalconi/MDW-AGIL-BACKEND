@@ -64,7 +64,7 @@ $(document).on('submit', '#reservas', function (e) {
                 "</div>";
             $("#rooms").html(rooms);
         } else {
-            swal("Info", "Los codigos ingresados son incorrectos", "info");
+            swal("Información", "Los códigos ingresados son incorrectos", "info");
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -95,7 +95,7 @@ $(document).on('submit', '#resconfirm', function (e) {
         processData: false,
     }).done(function (jqXHR, textStatus) {
         var rooms = "";
-        swal("Inform", "Confirm reservation!!! ", "success");
+        swal("Información", "Confirmar reservación!!! ", "success");
         $("#rooms").html(rooms);
         $("#idreserva").val("");
         $("#pinhotel").val("");
