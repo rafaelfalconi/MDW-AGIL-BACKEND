@@ -16,4 +16,7 @@
 /vendor/
 /web/bundles/
 /.idea
+/.idea/*.iml
+*.iml
 /bin
+/.idea/Reservas.iml

@@ -65,6 +65,7 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+    disable_delivery: false
 
 # Nelmio CORS Configuration
 nelmio_cors:
