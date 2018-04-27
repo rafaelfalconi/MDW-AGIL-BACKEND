@@ -121,6 +121,7 @@ class ReservaController extends FOSRestController
 
         $codigo = $request->get('codigo');
         $estado= $request->get('estado');
+
         $fecha = $request->get('fecha');
         $entrada = $request->get('entrada');
         $salida = $request->get('salida');
