@@ -2,28 +2,47 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class SendEmailsController extends Controller
+class SendEmailsController
 {
-    public function sendEmails($reservationId, $reservationPrice, $hotelEmail, $managerEmail, $customerEmail, \Swift_Mailer $mailer)
+    private $mailer;
+    private $templating;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->mailer = $container->get('mailer');
+        $this->templating = $container->get('twig');
+    }
+
+    public function reservationConfirmation($reservationId, $reservationPrice, $hotelEmail, $managerEmail, $customerEmail)
     {
         $message = (new \Swift_Message('Reserva registrada'))
             ->setFrom($hotelEmail)
-            ->setTo($managerEmail, $customerEmail)
+            ->setTo(array($customerEmail,$managerEmail))
             ->setBody(
-                $this->renderView(
+                $this->templating->render(
                     'emails/reservation-confirmation.html.twig',
                     array('reservationId' => $reservationId, 'reservationPrice' => $reservationPrice)
                 ),
                 'text/html'
             );
-
-        $mailer->send($message);
-
-        return $this->render(
-            'emails/reservation-confirmation.html.twig',
-            array('reservationId' => $reservationId, 'reservationPrice' => $reservationPrice)
-        );
+        $this->mailer->send($message);
     }
+
+    public function reservationPaymentInfo($reservationPrice, $reservationId, $hotelEmail, $customerEmail)
+    {
+        $message = (new \Swift_Message('Pago reserva'))
+            ->setFrom($hotelEmail)
+            ->setTo($customerEmail)
+            ->setBody(
+                $this->templating->render(
+                    'emails/reservation-payment.html.twig',
+                    array('reservationPrice' => $reservationPrice, 'reservationId' => $reservationId)
+                ),
+                'text/html'
+            );
+        $this->mailer->send($message);
+    }
+
 }
