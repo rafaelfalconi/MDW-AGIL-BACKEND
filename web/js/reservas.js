@@ -95,7 +95,7 @@ $(document).on('submit', '#resconfirm', function (e) {
         processData: false,
     }).done(function (jqXHR, textStatus) {
         var rooms = "";
-        swal("Información", "Confirmar reservación!!! ", "success");
+        swal("Información", "Reserva confirmada!!! ", "success");
         $("#rooms").html(rooms);
         $("#idreserva").val("");
         $("#pinhotel").val("");
