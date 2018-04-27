@@ -39,12 +39,6 @@ class UsuarioController extends FOSRestController
             return new View("LOS CAMPOS VACIOS NO ESTAN PERMITIDOS", Response::HTTP_NOT_ACCEPTABLE);
         }
         $em = $this->getDoctrine()->getManager();
-       /* $criteria = new Criteria();
-        $criteria
-            ->where($criteria::expr()->eq('email', $username ));
-        $user_exist = $em
-            ->getRepository(Usuario::class)
-            ->matching($criteria);*/
         $user_exist = $em
             ->getRepository(Usuario::class)
             ->findBy(['email' => $username]);
