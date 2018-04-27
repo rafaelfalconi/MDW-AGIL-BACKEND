@@ -35,10 +35,11 @@ class UsuarioControllerTest extends WebTestCase
         $username = 'userTest' . $rand_num . '@test.com';
         $p_data = array('username' => $username);
         $client = static::createClient();
+        $clientTemp = static::createClient();
         $client->request('POST' , self::RUTA_API1,$p_data );
-        $client->request('POST' , self::RUTA_API1,$p_data );
+        $clientTemp->request('POST' , self::RUTA_API1,$p_data );
         $response = $client->getResponse();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $clientTemp->getResponse()->getStatusCode());
         self::assertTrue($response->isSuccessful());
         self::assertJson($response->getContent());
 

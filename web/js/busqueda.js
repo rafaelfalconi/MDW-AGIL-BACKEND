@@ -4,7 +4,7 @@ $(document).on('submit', '#search-room', function (e) {
 
     ingreso = $("#hour-search option:selected").val();
     var fecha = $("#datepicker").val();
-    if ("yyyy/mm/dd" == fecha) {a
+    if ("yyyy/mm/dd" == fecha) {
         swal("Seleccione una fecha");
     } else {
         $.ajax({
@@ -71,25 +71,29 @@ $('#rooms').on("click", '.habitaciones', function () {
 $(document).on('submit', '#reserva', function (e) {
     e.preventDefault();
     var $this = $(this);
-    console.log($this);
-    $.ajax({
-        url:  url_+'users',
-        type: 'POST',
-        data: new FormData($this[0]),
-        async: true,
-        cache: false,
-        contentType: false,
-        processData: false,
-    }).done(function (datos, textStatus, xhr) {
-        addReserva($this, datos);
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        if (jqXHR.status == "406") {
-            swal("Alerta", jqXHR.responseText.replace(/["]+/g, ''), "info");
-        }
-        else {
-            swal("Error", "Error de conexión", "error");
-        }
-    })
+    var email = $("#username").val();
+    if(validarEmail(email)) {
+        $.ajax({
+            url: url_ + 'users',
+            type: 'POST',
+            data: new FormData($this[0]),
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+        }).done(function (datos, textStatus, xhr) {
+            addReserva($this, datos);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == "406") {
+                swal("", jqXHR.responseText.replace(/["]+/g, ''), "info");
+            }
+            else {
+                swal("", "Error de conexión", "error");
+            }
+        })
+    } else {
+        swal("", "El email no es correto", "info");
+    }
 
 });
 
@@ -108,13 +112,19 @@ function addReserva($this, usuario) {
         $("#rooms").html('');
         $('#myModal').modal('toggle');
         $('#reserva')[0].reset();
-        swal("Buen trabajo!", "Reserva agregada con éxito", "success");
+        swal("", "Reserva agregada con éxito", "success");
     }).fail(function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.status == "406") {
-            swal("Alerta", jqXHR.responseText.replace(/["]+/g, ''), "info");
+            swal("", jqXHR.responseText.replace(/["]+/g, ''), "info");
         }
         else {
-            swal("Error", "Reserva no realizada", "error");
+            swal("", "Reserva no realizada", "error");
         }
     })
+}
+
+function validarEmail( email )
+{
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email) ? true : false;
 }
