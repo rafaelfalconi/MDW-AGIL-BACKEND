@@ -101,7 +101,6 @@ class ReservaController extends FOSRestController
     {
 
         $reserva = new Reserva;
-        $sendEmail = new SendCustomerEmailController;
         $codigo = $request->get('codigo');
         $estado= $request->get('estado');
         $fecha = $request->get('fecha');
