@@ -1,3 +1,20 @@
+var BASE_URL = "/";
+
+$.getJSON(BASE_URL+"api/v1/hotels",function(data){
+    $.each(data,function(key,value){
+        $('#hotels').append('<option value=' + value.id + '>' + value.nombre + '</option>');
+    });
+});
+
+$("#hotels").change(function() {
+    $('#reservations').html('');
+    $.getJSON(BASE_URL+"api/v1/reservas/hotel/"+this.value,function(data){
+        $.each(data,function(key,value){
+            $('#reservations').append('<tr> <td>'+value.fecha+'</td> <td>'+value.codigo+'</td> <td>'+value.precio+'</td> <td>'+value.entrada+'</td> <td>'+value.salida+'</td> <td>'+value.estado+'</td> </tr>');
+        });
+    });
+});
+
 $(document).on('submit', '#reservas', function (e) {
     e.preventDefault();
     codeReservation = $("#idreserva").val();
