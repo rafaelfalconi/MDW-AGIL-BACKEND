@@ -57,7 +57,7 @@ $(document).on('submit', '#reservas', function (e) {
                 "                            <input disabled=\"\" type='text' class='form-control1' id='focusedinput' placeholder='Default Input' value='" + datos[0]["habitacion"]["id"] + "'>\n" +
                 "                        </div>\n" +
                 "                    </div><br>\n" +
-                "                <input type='submit' class='submit' value='Confirm'>\n" +
+                "                <input type='submit' class='submit' value='Confirmar'>\n" +
                 "            </form>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
