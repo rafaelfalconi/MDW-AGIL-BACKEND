@@ -38,6 +38,24 @@ class ReservaController extends FOSRestController
     }
 
     /**
+     * @Rest\POST("")
+     */
+    public function createAction(Request $request)
+    {
+        $newreserva= new Reserva();
+        $newreserva= $request->get('reserva');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newreserva);
+        $flush = $em->flush();
+        if ($flush == null) {
+            return new View('Reserva insertado correctamente', Response::HTTP_CREATED);
+        } else {
+            return new View('Reserva no se ha insertado, error con la conexion', Response::HTTP_NO_CONTENT);
+        }
+    }
+
+    /**
      * @Rest\Get("/hotel/{id}")
      */
     public function getReservasByHotelAction($id)
@@ -47,6 +65,7 @@ class ReservaController extends FOSRestController
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
         }
         return $restresult;
+        die();
     }
 
     /**
