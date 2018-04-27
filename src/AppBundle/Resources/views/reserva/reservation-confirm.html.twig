@@ -1,3 +1,4 @@
+{% extends 'base_admin.html.twig' %}
 {% block body %}
 
 
@@ -8,7 +9,7 @@
             <div class="book-form">
                 <form id="reservas" class="form-horizontal">
                     <div class="form-group">
-                        <label for="focusedinput" class="col-sm-2 control-label">Código</label>
+                        <label for="focusedinput" class="col-sm-2 control-label">Reservation code</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control1" id="idreserva" placeholder="Ingrese código de reservación">
                         </div>
@@ -35,7 +36,6 @@
     </div>
     <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
     <script src="{{ asset('js/reservas.js') }}"></script>
-
 
 
 {% endblock %}

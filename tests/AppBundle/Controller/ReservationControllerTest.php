@@ -17,7 +17,8 @@ use AppBundle\Entity\Hotel;
 class ReservationControllerTest extends WebTestCase
 {
 
-    const RUTA_API0 = 'api/v1/reservas/create';
+
+    const RUTA_API0 = 'api/v1/reservas';
 
     public function testCreateReservas()
     {
@@ -70,7 +71,7 @@ class ReservationControllerTest extends WebTestCase
 
     }
 
-    const RUTA_API3 = 'api/v1/reservas/code/0425/hotel/0112';
+    const RUTA_API3 = 'api/v1/reservas/code/0425';
 
     public function testGetRerservationByCodigo200()
     {
@@ -102,11 +103,11 @@ class ReservationControllerTest extends WebTestCase
 
         $data = array(
             'fecha' => '04/27/2999',
-            'entrada' => '16',
+            'entrada' => 16,
             'salida' => '20',
             'habitacion' => 1,
             'usuario' => 1,
-            'maxdisponible'=>'22'
+            'maxdisponible' => 22,
         );
         $client = static::createClient();
         $client->request('POST', self::RUTA_API1, $data);
