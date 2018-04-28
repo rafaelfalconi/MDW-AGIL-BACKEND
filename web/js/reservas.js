@@ -34,8 +34,8 @@ $(document).on('submit', '#reservas', function (e) {
             rooms += "<div class=\"w3l-footer\">\n" +
                 "    <div class=\"container\">\n" +
                 "        <div class=\"connect-agileits newsletter\">\n" +
-                "            <h4>Confirmation Report</h4>\n" +
-                "            <p>Condirmation of the reservation code with the pin of the hotel.</p>\n" +
+                "            <h4>Reporte de confirmación</h4>\n" +
+                "            <p>Confirmación del código de reserva con el pin del hotel.</p>\n" +
                 "            <form id='resconfirm' action=\"#\" method=\"post\" class='form-horizontal'>\n" +
                 "                    <div class='form-group'>\n" +
                 "                    <label for='focusedinput' class='col-sm-2 control-label'><p>PIN</p></label>\n" +
@@ -57,14 +57,14 @@ $(document).on('submit', '#reservas', function (e) {
                 "                            <input disabled=\"\" type='text' class='form-control1' id='focusedinput' placeholder='Default Input' value='" + datos[0]["habitacion"]["id"] + "'>\n" +
                 "                        </div>\n" +
                 "                    </div><br>\n" +
-                "                <input type='submit' class='submit' value='Confirm'>\n" +
+                "                <input type='submit' class='submit' value='Confirmar'>\n" +
                 "            </form>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
                 "</div>";
             $("#rooms").html(rooms);
         } else {
-            swal("Info", "Los codigos ingresados son incorrectos", "info");
+            swal("Información", "Los códigos ingresados son incorrectos", "info");
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -95,7 +95,7 @@ $(document).on('submit', '#resconfirm', function (e) {
         processData: false,
     }).done(function (jqXHR, textStatus) {
         var rooms = "";
-        swal("Inform", "Confirm reservation!!! ", "success");
+        swal("Información", "Reserva confirmada!!! ", "success");
         $("#rooms").html(rooms);
         $("#idreserva").val("");
         $("#pinhotel").val("");
