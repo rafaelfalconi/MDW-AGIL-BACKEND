@@ -74,6 +74,17 @@ class ReservationControllerTest extends WebTestCase
 
     }
 
+    public function testGetRerservationByHotel200()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', self::RUTA_API0.'/hotel/1');
+        $respose = $client->getResponse();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        self::assertTrue($respose->isSuccessful());
+        self::assertJson($respose->getContent());
+    }
+
 
     const RUTA_API2 = 'api/v1/reservas/1';
 
