@@ -65,7 +65,6 @@ class ReservaController extends FOSRestController
             return new View("there are no reservation exist", Response::HTTP_NOT_FOUND);
         }
         return $restresult;
-        die();
     }
 
     /**
