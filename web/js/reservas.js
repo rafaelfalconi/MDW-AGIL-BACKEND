@@ -1,5 +1,3 @@
-var BASE_URL = "/";
-
 $.getJSON(BASE_URL+"api/v1/hotels",function(data){
     $.each(data,function(key,value){
         $('#hotels').append('<option value=' + value.id + '>' + value.nombre + '</option>');
@@ -21,7 +19,7 @@ $(document).on('submit', '#reservas', function (e) {
     pintHotel = $("#pinhotel").val();
 
     $.ajax({
-        url: 'http://127.0.0.1:8001/api/v1/reservas/code/' + codeReservation + '/hotel/' + pintHotel,
+        url: 'api/v1/reservas/code/' + codeReservation + '/hotel/' + pintHotel,
         type: 'GET',
         data: null,
         async: true,
@@ -86,7 +84,7 @@ $(document).on('submit', '#resconfirm', function (e) {
     e.preventDefault();
     idReserva = $("#inputidreserva").val();
     $.ajax({
-        url: 'http://127.0.0.1:8001/api/v1/reservas/' + idReserva + '/update',
+        url: 'api/v1/reservas/' + idReserva + '/update',
         type: 'PUT',
         data: null,
         async: true,

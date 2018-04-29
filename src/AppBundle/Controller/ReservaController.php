@@ -38,7 +38,7 @@ class ReservaController extends FOSRestController
     }
 
     /**
-     * @Rest\POST("/create")
+     * @Rest\Post("/create")
      */
     public function createAction(Request $request)
     {
