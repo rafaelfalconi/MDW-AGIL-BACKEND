@@ -21,7 +21,7 @@ use AppBundle\Entity\Reserva;
 class HabitacionController extends FOSRestController
 {
     /**
-     * @Rest\GET()
+     * @Rest\Get()
      */
     public function getAction(Request $request)
     {
