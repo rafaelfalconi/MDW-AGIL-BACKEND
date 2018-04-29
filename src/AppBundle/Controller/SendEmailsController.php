@@ -15,11 +15,11 @@ class SendEmailsController
         $this->templating = $container->get('twig');
     }
 
-    public function reservationConfirmation($reservationId, $reservationPrice, $hotelEmail, $managerEmail, $customerEmail)
+    public function reservationConfirmation($reservationId, $reservationPrice, $hotelEmail, $customerEmail)
     {
         $message = (new \Swift_Message('Reserva registrada'))
-            ->setFrom($hotelEmail)
-            ->setTo(array($customerEmail,$managerEmail))
+            ->setFrom("buking@joaquinzamora.net")
+            ->setTo(array($customerEmail,$hotelEmail))
             ->setBody(
                 $this->templating->render(
                     'emails/reservation-confirmation.html.twig',
@@ -30,10 +30,10 @@ class SendEmailsController
         $this->mailer->send($message);
     }
 
-    public function reservationPaymentInfo($reservationPrice, $reservationId, $hotelEmail, $customerEmail)
+    public function reservationPaymentInfo($reservationPrice, $reservationId, $customerEmail)
     {
         $message = (new \Swift_Message('Pago reserva'))
-            ->setFrom($hotelEmail)
+            ->setFrom("buking@joaquinzamora.net")
             ->setTo($customerEmail)
             ->setBody(
                 $this->templating->render(

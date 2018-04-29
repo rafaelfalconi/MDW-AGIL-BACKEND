@@ -157,8 +157,8 @@ class ReservaController extends FOSRestController
         $em->flush();
 
         $email = new SendEmailsController($this->container);
-        $email->reservationPaymentInfo($precio, $codigo, $hotel->getEmail(), $customerEmail);
-        $email->reservationConfirmation($codigo, $precio, $hotel->getEmail(),'buking@joaquinzamora.net', $customerEmail);
+        $email->reservationConfirmation($codigo, $precio, $hotel->getEmail(), $customerEmail);
+        $email->reservationPaymentInfo($precio, $codigo, $customerEmail);
         return new View($reserva, Response::HTTP_OK);
     }
 
