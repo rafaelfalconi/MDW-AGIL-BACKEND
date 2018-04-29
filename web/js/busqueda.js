@@ -70,9 +70,11 @@ $('#rooms').on("click", '.habitaciones', function () {
 
 $(document).on('submit', '#reserva', function (e) {
     e.preventDefault();
+
     var $this = $(this);
     var email = $("#username").val();
     if(validarEmail(email)) {
+        $("#loading").show();
         $.ajax({
             url: url_ + 'users',
             type: 'POST',
@@ -84,6 +86,7 @@ $(document).on('submit', '#reserva', function (e) {
         }).done(function (datos, textStatus, xhr) {
             addReserva($this, datos);
         }).fail(function (jqXHR, textStatus, errorThrown) {
+            $("#loading").hide();
             if (jqXHR.status == "406") {
                 swal("", jqXHR.responseText.replace(/["]+/g, ''), "info");
             }
@@ -113,7 +116,9 @@ function addReserva($this, usuario) {
         $('#myModal').modal('toggle');
         $('#reserva')[0].reset();
         swal("", "Reserva agregada con éxito", "success");
+        $("#loading").hide();
     }).fail(function (jqXHR, textStatus, errorThrown) {
+        $("#loading").hide();
         if (jqXHR.status == "406") {
             swal("", jqXHR.responseText.replace(/["]+/g, ''), "info");
         }
