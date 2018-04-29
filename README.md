@@ -1,15 +1,14 @@
-primero instalar las dependencias de symfony con composer install
-configurar la base de datos dentro del archivo app/config/parameters.yml
-database_host:23.229.227.224
-database_name:MIWDB 
-database_user:MIWUSER
-database_password:MIWPASS
-crear una rama con el nombre apartir de develop y trabar en esa una ves que se tenga un vance incorporar los
-cambios a develop.
+# Práctica de Desarrollo con Metodologías Ágiles
 
-la carpeta del front end es html
+### Enunciado
+Una empresa hotelera desea revolucionar el alquiler de habitaciones de hotel mediante la oferta de habitaciones por horas. Para ello, desea realizar una aplicación web para la gestión de la disponibilidad y de las reservas online de las habitaciones. Para alcanzar este objetivo, ha encomendado a los profesores de Metodologías de Desarrollo Web verificar el avance del proyecto e interactuar con los equipos de desarrollo de la ETSISI.
 
-para corer el servidor de symfony es : php bin/console serve:run
+### Integrantes
+* Joaquín Zamora - Product Owner
+* Juan Jiménez - Scrum Master
+* Jesús Zea - Team Member
+* Rafael Falconí - Team Member
+* Antonio Chain - Team Member
+* Santiago Pérez - Team Member
 
-si quieren consultar como construir el controlador y su funcion en dropbox esta una
-carptea con nombre : rest api ejemplo
+#### [Máster en Ingeniería Web por la U.P.M.](http://miw.etsisi.upm.es)
