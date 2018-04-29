@@ -11,6 +11,15 @@ font-family: 'Open Sans', sans-serif;
 	background:#ffffff;
 	margin:0px!important;
 }
+#salida {
+    width: 100%;
+    color:#9a9797;
+    background-color: #000;
+    padding: 3px 10px;
+    border: 2px solid #fff;
+    margin-bottom: 1em;
+    font-family: 'Open Sans', sans-serif;
+}
 p{
 	margin:0;
 	font-size:14px;
