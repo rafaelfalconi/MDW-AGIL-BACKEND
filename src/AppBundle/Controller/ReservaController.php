@@ -138,7 +138,7 @@ class ReservaController extends FOSRestController
             return new View("HORA DE SALIDA NO PUEDE SER MAYOR A " . $maxDisponible . ":00H", Response::HTTP_NOT_ACCEPTABLE);
         }
         $habitacion = $this->getDoctrine()->getRepository('AppBundle:Habitacion')->find($habitacion);
-        $hotel = $this->getDoctrine()->getRepository('AppBundle:Hotel')->find($habitacion->getId());
+        $hotel = $this->getDoctrine()->getRepository('AppBundle:Hotel')->find($habitacion->getHotel());
         $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($usuario);
         if (empty($codigo)) {
             $codigo = mt_rand(0, 1000000);
@@ -157,8 +157,8 @@ class ReservaController extends FOSRestController
         $em->flush();
 
         $email = new SendEmailsController($this->container);
-        $email->reservationPaymentInfo($precio, $codigo, $hotel->getEmail(), $customerEmail);
-
+        $email->reservationConfirmation($codigo, $precio, $hotel->getEmail(), $customerEmail);
+        $email->reservationPaymentInfo($precio, $codigo, $customerEmail);
         return new View($reserva, Response::HTTP_OK);
     }
 
