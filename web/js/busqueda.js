@@ -24,7 +24,7 @@ $(document).on('submit', '#search-room', function (e) {
             var rooms = "";
             $.each(datos, function (i, habitaciones) {
                 rooms += "<div class='col-md-12 table-bordered'>";
-                rooms += "<div class='col-md-3 col-lg-3'><img src='http://www.samanahotel.com.pe/images/habitacion-simple1.jpg' class='img-responsive'></div>"
+                rooms += "<div class='col-md-3 col-lg-3'><img src='https://www.samanahotel.com.pe/images/habitacion-simple1.jpg' class='img-responsive'></div>"
                 rooms += "<div class='col-md-9 col-lg-9'>";
                 rooms += "<div class='col-md-12'>";
                 rooms += "<h3>Tipo de habitación: sencilla</h3>"
