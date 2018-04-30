@@ -35,7 +35,7 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
             ->select('reserva.fecha', 'reserva.id', 'reserva.estado',
                 'reserva.entrada', 'reserva.salida',
                 'reserva.codigo', 'habitacion.precio')
-            ->where('hotel.id = :id')
+            ->where('hotel.id = :id and reserva.estado = 1')
             ->setParameter('id', $id);
 
         return $query

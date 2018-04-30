@@ -6,10 +6,18 @@ $.getJSON(BASE_URL+"api/v1/hotels",function(data){
 
 $("#hotels").change(function() {
     $('#reservations').html('');
+    $('#total').html('');
     $.getJSON(BASE_URL+"api/v1/reservas/hotel/"+this.value,function(data){
+        total = 0;
+        subtotal = 0;
         $.each(data,function(key,value){
-            $('#reservations').append('<tr> <td>'+value.fecha+'</td> <td>'+value.codigo+'</td> <td>'+value.precio+'</td> <td>'+value.entrada+'</td> <td>'+value.salida+'</td> <td>'+value.estado+'</td> </tr>');
+            subtotal = (value.salida-value.entrada)*value.precio;
+            total = subtotal + total;
+            $('#reservations').append('<tr> <td>'+value.fecha+'</td> <td>'+value.codigo+'</td> <td>'+value.precio+'</td> <td>'+value.entrada+'</td> <td>'+value.salida+'</td> <td>'+value.estado+'</td> <td>'+subtotal+' €</td> </tr>');
+            $('#total').html(total);
         });
+        $('#total').prepend("Total: ");
+        $('#total').append(" €");
     });
 });
 
