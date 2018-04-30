@@ -1,0 +1,41 @@
+{% extends 'base_admin.html.twig' %}
+{% block body %}
+
+<div class="about-bottom" id="ab">
+    <div class="col-md-12 ">
+        <h3 class="tittle why">RESERVATIONS REPORT</h3>
+        <br>
+        <h3><label> Select Hotel:</label></h3>
+        <div class="book-form">
+            <select class="form-control" id="hotels" style="width: 250px">
+                <option disabled selected value="null">No selected hotel</option>
+            </select>
+        </div>
+        <button class="btn btn-danger pull-right" onclick="window.print()">Print Report</button>
+        <br>
+        <table class="table">
+            <tr>
+                <th>Fecha</th>
+                <th>Codigo</th>
+                <th>Precio</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Subtotal</th>
+            </tr>
+            <tbody id="reservations">
+            </tbody>
+        </table>
+        <hr>
+        <h3><label class="pull-right" id="total"></label></h3>
+    </div>
+    <div class="clearfix"></div>
+    <div id="rooms" class="container">
+        <!--Your code report confirm-reservation.html-->
+    </div>
+</div>
+
+    <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('js/reservas.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+    <div class="about-bottom" id="ab">
+        <div class="col-md-12 ">
+            <h3 class="tittle why">Busca una habitación</h3>
+            <div class="book-form">
+
+                <form id="search-room">
+
+                    <div class="col-md-6 form-date-w3-agileits">
+                        <label><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de ingreso :</label>
+                        <input id="datepicker" id="date-search" name="fecha" type="text" value="yyyy/mm/dd"
+                               onfocus="this.value = '';"
+                               onblur="if (this.value == '') {this.value = 'yyyy/mm/dd';}" required="">
+
+                    </div>
+                    <div class="col-md-3 form-time-w3layouts second-agile">
+                        <label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de entrada :</label>
+                        <select id="hour-search" name="hora" class="form-control">
+                            <option value="1">0:00</option>
+                            <option value="1">1:00</option>
+                            <option value="2">2:00</option>
+                            <option value="3">3:00</option>
+                            <option value="4">4:00</option>
+                            <option value="5">5:00</option>
+                            <option value="6">6:00</option>
+                            <option value="7">7:00</option>
+                            <option value="8">8:00</option>
+                            <option value="9">9:00</option>
+                            <option value="10">10:00</option>
+                            <option value="11">11:00</option>
+                            <option value="12">12:00</option>
+                            <option value="13">13:00</option>
+                            <option value="14">14:00</option>
+                            <option value="15">15:00</option>
+                            <option value="16">16:00</option>
+                            <option value="17">17:00</option>
+                            <option value="18">18:00</option>
+                            <option value="19">19:00</option>
+                            <option value="20">20:00</option>
+                            <option value="21">21:00</option>
+                            <option value="22">22:00</option>
+                        </select>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="make wow shake" data-wow-duration="1s" data-wow-delay=".5s">
+                        <input type="submit" value="Buscar">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+    <!-- //about -->
+    <!-- /plans -->
+    <div class="plans-section">
+        <div class="container">
+            <h3 class="w3l-inner-h-title">Habitaciones </h3>
+            <div id="rooms" class="container">
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Reserva</h4>
+                </div>
+                <div class="modal-body" style="position:relative">
+                    <div id="loading">
+                        <img class="load" src="images/load.gif" width=" 100px">
+                    </div>
+                    <div class="book-form">
+                        <form id="reserva">
+
+                            <div class="col-md-12 form-time-w3layouts second-agile">
+                                <label><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de Ingreso :</label>
+                                <input type="hidden" id="habitacion" name="habitacion">
+                                <input type="hidden" id="usuario" name="usuario" value="1">
+                                <input type="hidden" id="maxdisponible" name="maxdisponible"  >
+                                <input id="fecha" name="fecha" type="text" value="yyyy/mm/dd" readonly="readonly">
+                            </div>
+                            <div class="col-md-12 form-time-w3layouts second-agile">
+                                <label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de entrada :</label>
+                                <input id="entrada" name="entrada" type="text" readonly="readonly">
+                            </div>
+                            <div class="col-md-12 form-time-w3layouts second-agile">
+                                <label><i class="fa fa-clock-o" aria-hidden="true"></i> Hora de salida :</label><BR>
+                                <select id="salida" name="salida">
+                                    <option value="1">0:00</option>
+                                    <option value="1">1:00</option>
+                                    <option value="2">2:00</option>
+                                    <option value="3">3:00</option>
+                                    <option value="4">4:00</option>
+                                    <option value="5">5:00</option>
+                                    <option value="6">6:00</option>
+                                    <option value="7">7:00</option>
+                                    <option value="8">8:00</option>
+                                    <option value="9">9:00</option>
+                                    <option value="10">10:00</option>
+                                    <option value="11">11:00</option>
+                                    <option value="12">12:00</option>
+                                    <option value="13">13:00</option>
+                                    <option value="14">14:00</option>
+                                    <option value="15">15:00</option>
+                                    <option value="16">16:00</option>
+                                    <option value="17">17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                    <option value="21">21:00</option>
+                                    <option value="22">22:00</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-time-w3layouts second-agile">
+                                <label><i class="fa fa-at" aria-hidden="true"></i> E-mail :</label>
+                                <input id="username" name="username" type="text">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="make wow shake" data-wow-duration="1s" data-wow-delay=".5s">
+                                <input type="submit" value="Reservar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('js/busqueda.js') }}"></script>
+
+
+{% endblock %}

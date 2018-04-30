@@ -1,5 +1,6 @@
 {
-    "name": "rafaelfalconi/.checkout",
+    "name": "rafaelfalconi/checkout",
+    "description": "rafaelfalconi_checkout",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -36,6 +37,7 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "phpunit/phpunit": "^7",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
